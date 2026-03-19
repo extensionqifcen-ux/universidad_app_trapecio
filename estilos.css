@@ -137,4 +137,3 @@ h1 { font-size: 1.6em; font-weight: 800; margin-bottom: 15px; }
 .options-list { display: flex; flex-direction: column; gap: 10px; width: 100%; }
 .btn-option { background: white; border: 1px solid #ddd; padding: 15px; border-radius: 10px; text-align: left; font-weight: 600; cursor: pointer; }
 .btn-back { margin-top: 20px; background: none; border: 1px solid #ccc; padding: 10px; border-radius: 8px; cursor: pointer; width: 100%; }
-
