@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Uni Pública - Box Version</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+  <title>Universidad Pública - Box Version</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
@@ -12,88 +12,111 @@
   <div class="app-container">
 
     <!-- 1. PANTALLA INICIAL -->
-    <div id="home" class="screen active">
-      <h1 style="padding: 20px; text-align: center;">¿Qué pasa con la Universidad?</h1>
-      <button onclick="navigateWithSlide('menu-box', 'bottom')" 
-              style="padding: 15px 40px; background: #003380; color: white; border: none; border-radius: 50px; font-weight: 800; cursor: pointer;">
-        EXPLORAR
-      </button>
+    <div id="home" class="screen slide-active">
+      <div class="badge">Investigación interactiva</div>
+      <h1>¿Qué pasa cuando un país <span class="highlight-red">deja de financiar</span> a sus universidades?</h1>
+      <p class="subtitle">Explorá las consecuencias del recorte presupuestario.</p>
+      <button class="btn-primary" onclick="spatialNav('menu-v3', 'bottom')">EXPLORAR</button>
     </div>
 
-    <!-- 2. MENÚ TIPO CAJA (TRAPECIOS) -->
-    <div id="menu-box" class="screen hidden">
-      <div class="box-menu">
-        <button class="wall wall-top titilar" onclick="navigateWithSlide('ley', 'top')">📜 La Ley</button>
-        
-        <button class="wall wall-left titilar" onclick="navigateWithSlide('historia', 'left')">
-          <span class="rotate-left">⏳ Historia</span>
+    <!-- 2. MENÚ TRAPECIOS (NUEVO) -->
+    <div id="menu-v3" class="screen hidden">
+      <div class="menu-trapecio-container">
+        <button class="wall wall-top titilar" onclick="spatialNav('ley', 'top')">📜 La Ley</button>
+        <button class="wall wall-left titilar" onclick="spatialNav('historia', 'left')">
+            <span class="rotate-l">⏳ Historia</span>
         </button>
         
-        <div class="center-floor">
-          <h2 style="color:#003380">ELEGÍ TU CAMINO</h2>
-          <p style="font-size: 0.8em; color: #666;">Tocá las paredes de la caja</p>
+        <div class="center-message">
+          <h2 style="font-size: 1.2em;">ELIGE TU CAMINO</h2>
+          <p style="font-size: 0.7em; margin-top: 5px;">Tocá las paredes de la caja</p>
+          <button onclick="spatialNav('home', 'top')" style="margin-top:10px; font-size:0.7em; background:none; border:none; text-decoration:underline; color:#666;">Volver</button>
         </div>
-        
-        <button class="wall wall-right titilar" onclick="navigateWithSlide('salarios', 'right')">
-          <span class="rotate-right">📊 Salarios</span>
+
+        <button class="wall wall-right titilar" onclick="spatialNav('salarios', 'right')">
+            <span class="rotate-r">📊 Salarios</span>
         </button>
-        
-        <button class="wall wall-bottom titilar" onclick="navigateWithSlide('funcionamiento', 'bottom')">🏛️ Universidad</button>
+        <button class="wall wall-bottom titilar" onclick="spatialNav('funcionamiento', 'bottom')">🏛️ Universidad</button>
       </div>
     </div>
 
-    <!-- PANTALLA DE EJEMPLO: LA LEY -->
-    <div id="ley" class="screen hidden" style="padding: 20px; text-align: center;">
+    <!-- 3. RAMA: LA LEY -->
+    <div id="ley" class="screen hidden">
       <h2>📜 La Ley 27.795</h2>
-      <p>Aquí va la información detallada sobre la ley...</p>
-      <button onclick="navigateWithSlide('menu-box', 'bottom')" 
-              style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; background: none;">
-        Volver al menú
-      </button>
+      <p class="subtitle">Entendé el centro del conflicto.</p>
+      <div class="options-list">
+        <button class="btn-option" onclick="spatialNav('ley-resumen', 'right')">¿Qué dice la ley?</button>
+        <button class="btn-option">¿Por qué el veto?</button>
+      </div>
+      <button class="btn-back" onclick="spatialNav('menu-v3', 'bottom')">Volver al menú</button>
     </div>
 
-    <!-- NOTA: Deberás agregar los IDs 'historia', 'salarios' y 'funcionamiento' siguiendo el modelo de 'ley' -->
+    <!-- 4. RAMA: LA UNIVERSIDAD -->
+    <div id="funcionamiento" class="screen hidden">
+      <h2>🏛️ ¿Cómo funciona?</h2>
+      <p class="subtitle">Desmitificando el gasto universitario.</p>
+      <div class="options-list">
+        <button class="btn-option">¿En qué se gasta?</button>
+        <button class="btn-option">Auditorías</button>
+      </div>
+      <button class="btn-back" onclick="spatialNav('menu-v3', 'top')">Volver al menú</button>
+    </div>
+
+    <!-- 5. RAMA: SALARIOS -->
+    <div id="salarios" class="screen hidden">
+      <h2>📊 Salarios Docentes</h2>
+      <p class="subtitle">La realidad de quienes enseñan.</p>
+      <div class="options-list">
+        <button class="btn-option">Inflación vs Sueldo</button>
+        <button class="btn-option">Fuga de cerebros</button>
+      </div>
+      <button class="btn-back" onclick="spatialNav('menu-v3', 'left')">Volver al menú</button>
+    </div>
+
+    <!-- 6. RAMA: HISTORIA -->
+    <div id="historia" class="screen hidden">
+      <h2>⏳ Historia Pública</h2>
+      <p class="subtitle">Tradición de lucha y conquistas.</p>
+      <div class="options-list">
+        <button class="btn-option">Reforma de 1918</button>
+        <button class="btn-option">Gratuidad (1949)</button>
+      </div>
+      <button class="btn-back" onclick="spatialNav('menu-v3', 'right')">Volver al menú</button>
+    </div>
+
+    <!-- PANTALLA FINAL EJEMPLO -->
+    <div id="ley-resumen" class="screen hidden">
+      <h2>¿Qué dice la ley?</h2>
+      <p class="subtitle" style="text-align: left;">Obligaba al Estado a actualizar el presupuesto según la inflación del INDEC.</p>
+      <button class="btn-back" onclick="spatialNav('ley', 'left')">Volver atrás</button>
+    </div>
 
   </div>
 
   <script>
-    let currentScreenId = 'home';
+    let currentId = 'home';
 
-    /**
-     * Navega con efecto de deslizamiento espacial
-     * @param {string} targetId - ID de la pantalla destino
-     * @param {string} direction - De dónde viene la nueva pantalla (top, bottom, left, right)
-     */
-    function navigateWithSlide(targetId, direction) {
-      const currentScreen = document.getElementById(currentScreenId);
-      const nextScreen = document.getElementById(targetId);
+    function spatialNav(targetId, direction) {
+      const currentEl = document.getElementById(currentId);
+      const targetEl = document.getElementById(targetId);
 
-      // 1. Preparamos la nueva pantalla (la ponemos en su posición inicial fuera de cámara)
-      nextScreen.classList.remove('hidden');
-      nextScreen.classList.remove('slide-in-top', 'slide-in-bottom', 'slide-in-left', 'slide-in-right', 'active');
-      nextScreen.classList.add('slide-in-' + direction);
+      // Preparamos la entrada
+      targetEl.classList.remove('hidden', 'slide-top', 'slide-bottom', 'slide-left', 'slide-right', 'slide-active');
+      targetEl.classList.add('slide-' + direction);
 
-      // Pequeño delay para que el navegador registre la posición inicial antes de animar
       setTimeout(() => {
-        // 2. Animamos la pantalla actual hacia afuera (dirección opuesta)
-        const opposite = {
-          'top': 'bottom',
-          'bottom': 'top',
-          'left': 'right',
-          'right': 'left'
-        };
-        currentScreen.classList.add('slide-out-' + opposite[direction]);
-        currentScreen.classList.remove('active');
+        // La actual sale hacia el lado opuesto
+        const opposites = { 'top':'bottom', 'bottom':'top', 'left':'right', 'right':'left' };
+        currentEl.classList.add('slide-' + opposites[direction]);
+        currentEl.classList.remove('slide-active');
 
-        // 3. Animamos la nueva pantalla hacia el centro
-        nextScreen.classList.remove('slide-in-' + direction);
-        nextScreen.classList.add('active');
+        // La nueva entra al centro
+        targetEl.classList.remove('slide-' + direction);
+        targetEl.classList.add('slide-active');
 
-        // 4. Al terminar la animación, ocultamos la vieja
         setTimeout(() => {
-          currentScreen.classList.add('hidden');
-          currentScreen.classList.remove('slide-out-' + opposite[direction]);
-          currentScreenId = targetId;
+          currentEl.classList.add('hidden');
+          currentId = targetId;
         }, 600);
       }, 50);
     }
