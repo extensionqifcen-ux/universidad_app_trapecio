@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uni Pública - Box Version</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- 1. PANTALLA INICIAL -->
+    <div id="home" class="screen active">
+      <h1 style="padding: 20px; text-align: center;">¿Qué pasa con la Universidad?</h1>
+      <button onclick="navigateWithSlide('menu-box', 'bottom')" 
+              style="padding: 15px 40px; background: #003380; color: white; border: none; border-radius: 50px; font-weight: 800; cursor: pointer;">
+        EXPLORAR
+      </button>
+    </div>
+
+    <!-- 2. MENÚ TIPO CAJA (TRAPECIOS) -->
+    <div id="menu-box" class="screen hidden">
+      <div class="box-menu">
+        <button class="wall wall-top titilar" onclick="navigateWithSlide('ley', 'top')">📜 La Ley</button>
+        
+        <button class="wall wall-left titilar" onclick="navigateWithSlide('historia', 'left')">
+          <span class="rotate-left">⏳ Historia</span>
+        </button>
+        
+        <div class="center-floor">
+          <h2 style="color:#003380">ELEGÍ TU CAMINO</h2>
+          <p style="font-size: 0.8em; color: #666;">Tocá las paredes de la caja</p>
+        </div>
+        
+        <button class="wall wall-right titilar" onclick="navigateWithSlide('salarios', 'right')">
+          <span class="rotate-right">📊 Salarios</span>
+        </button>
+        
+        <button class="wall wall-bottom titilar" onclick="navigateWithSlide('funcionamiento', 'bottom')">🏛️ Universidad</button>
+      </div>
+    </div>
+
+    <!-- PANTALLA DE EJEMPLO: LA LEY -->
+    <div id="ley" class="screen hidden" style="padding: 20px; text-align: center;">
+      <h2>📜 La Ley 27.795</h2>
+      <p>Aquí va la información detallada sobre la ley...</p>
+      <button onclick="navigateWithSlide('menu-box', 'bottom')" 
+              style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; background: none;">
+        Volver al menú
+      </button>
+    </div>
+
+    <!-- NOTA: Deberás agregar los IDs 'historia', 'salarios' y 'funcionamiento' siguiendo el modelo de 'ley' -->
+
+  </div>
+
+  <script>
+    let currentScreenId = 'home';
+
+    /**
+     * Navega con efecto de deslizamiento espacial
+     * @param {string} targetId - ID de la pantalla destino
+     * @param {string} direction - De dónde viene la nueva pantalla (top, bottom, left, right)
+     */
+    function navigateWithSlide(targetId, direction) {
+      const currentScreen = document.getElementById(currentScreenId);
+      const nextScreen = document.getElementById(targetId);
+
+      // 1. Preparamos la nueva pantalla (la ponemos en su posición inicial fuera de cámara)
+      nextScreen.classList.remove('hidden');
+      nextScreen.classList.remove('slide-in-top', 'slide-in-bottom', 'slide-in-left', 'slide-in-right', 'active');
+      nextScreen.classList.add('slide-in-' + direction);
+
+      // Pequeño delay para que el navegador registre la posición inicial antes de animar
+      setTimeout(() => {
+        // 2. Animamos la pantalla actual hacia afuera (dirección opuesta)
+        const opposite = {
+          'top': 'bottom',
+          'bottom': 'top',
+          'left': 'right',
+          'right': 'left'
+        };
+        currentScreen.classList.add('slide-out-' + opposite[direction]);
+        currentScreen.classList.remove('active');
+
+        // 3. Animamos la nueva pantalla hacia el centro
+        nextScreen.classList.remove('slide-in-' + direction);
+        nextScreen.classList.add('active');
+
+        // 4. Al terminar la animación, ocultamos la vieja
+        setTimeout(() => {
+          currentScreen.classList.add('hidden');
+          currentScreen.classList.remove('slide-out-' + opposite[direction]);
+          currentScreenId = targetId;
+        }, 600);
+      }, 50);
+    }
+  </script>
+</body>
+</html>
